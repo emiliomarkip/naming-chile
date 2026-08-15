@@ -127,7 +127,7 @@
     opts = opts || {};
     const box = document.getElementById(id);
     const W = Math.min(box.clientWidth || 780, 780), rowH = 44, H = items.length * rowH + 26;
-    const M = { l: 110, r: 70 };
+    const M = { l: 132, r: 70 };
     const vmax = opts.max || Math.max(...items.map(i => i.value)) * 1.12;
     const svg = el("svg", { width: "100%", viewBox: `0 0 ${W} ${H}`, role: "img" });
     items.forEach((it, i) => {
@@ -208,5 +208,61 @@
     container.appendChild(card);
   }
 
-  window.Charts = { lineChart, barChart, stackedChart, sparkCard, tableView };
+  /* ---- scatter semántico en canvas: points=[{x,y,c,n,a}] 0-100 ---- */
+  function scatterChart(id, points, opts) {
+    opts = opts || {};
+    const box = document.getElementById(id);
+    const W = Math.min(box.clientWidth || 780, 780), H = opts.height || 520;
+    const cv = document.createElement("canvas");
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    cv.width = W * dpr; cv.height = H * dpr;
+    cv.style.width = "100%"; cv.style.maxWidth = W + "px"; cv.style.borderRadius = "12px";
+    box.appendChild(cv);
+    const ctx = cv.getContext("2d");
+    ctx.scale(dpr, dpr);
+    const pad = 14;
+    const px = p => pad + p.x / 100 * (W - 2 * pad);
+    const py = p => pad + p.y / 100 * (H - 2 * pad);
+    const colorOf = opts.colorOf || (() => "#3987e5");
+
+    let yearMax = opts.yearInit || 2026, highlight = null;
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      for (const p of points) {
+        const activo = p.a <= yearMax;
+        ctx.globalAlpha = activo ? 0.75 : 0.08;
+        ctx.fillStyle = colorOf(p);
+        ctx.beginPath();
+        ctx.arc(px(p), py(p), activo ? 2.4 : 1.6, 0, 6.284);
+        ctx.fill();
+      }
+      if (highlight) {
+        const p = highlight;
+        ctx.globalAlpha = 1;
+        ctx.lineWidth = 2; ctx.strokeStyle = "#fff";
+        ctx.beginPath(); ctx.arc(px(p), py(p), 5, 0, 6.284); ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+    draw();
+
+    cv.addEventListener("mousemove", e => {
+      const r = cv.getBoundingClientRect();
+      const mx = (e.clientX - r.left) * (W / r.width), my = (e.clientY - r.top) * (H / r.height);
+      let best = null, bd = 144;
+      for (const p of points) {
+        if (p.a > yearMax) continue;
+        const d = (px(p) - mx) ** 2 + (py(p) - my) ** 2;
+        if (d < bd) { bd = d; best = p; }
+      }
+      if (best !== highlight) { highlight = best; draw(); }
+      if (best) showTip(e, `<b>${best.n}</b><br>${best.a}${opts.labelOf ? " · " + opts.labelOf(best) : ""}`);
+      else hideTip();
+    });
+    cv.addEventListener("mouseleave", () => { highlight = null; hideTip(); draw(); });
+
+    return { setYear(y) { yearMax = y; highlight = null; draw(); } };
+  }
+
+  window.Charts = { lineChart, barChart, stackedChart, sparkCard, tableView, scatterChart };
 })();

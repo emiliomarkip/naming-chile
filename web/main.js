@@ -106,6 +106,89 @@
     annotations: [{ x: 2020, label: "pandemia" }]
   });
 
+  /* ---------- 8. taxonomía ---------- */
+  const CAT_LBL = {
+    descriptivo: "Descriptivo (es)", ingles: "Inglés", fantasia_pura: "Fantasía pura",
+    fantasia_comp: "Fantasía compuesta", toponimo: "Topónimo", mapuche: "Raíz mapuche",
+    apellido: "Apellido", mixto: "Mixto", sigla: "Sigla"
+  };
+  builders["ch-tax-fracaso"] = () => {
+    const rows = D.taxonomia_fracaso
+      .filter(r => r.n > 2500)
+      .sort((a, b) => b.fracaso - a.fracaso)
+      .map(r => ({
+        label: CAT_LBL[r.categoria], value: r.fracaso,
+        color: r.categoria === "toponimo" ? C.s2 : C.muted,
+        note: r.n.toLocaleString("es-CL") + " solicitudes"
+      }));
+    Charts.barChart("ch-tax-fracaso", rows, { fmt: v => v.toFixed(1).replace(".", ",") + "%", max: 44, dimName: "Origen", valName: "% fracaso" });
+    const ej = D.taxonomia_ejemplos;
+    document.getElementById("chips-mapuche").innerHTML = ej.mapuche.slice(0, 8).map(n => `<span class="chip">${n}</span>`).join("");
+    document.getElementById("chips-toponimo").innerHTML = ej.toponimo.slice(0, 8).map(n => `<span class="chip">${n}</span>`).join("");
+  };
+  builders["ch-mapuche"] = () => Charts.lineChart("ch-mapuche", [
+    { name: "Raíz mapuche", color: C.s3, points: movil3(pts(D.mapuche_anio).filter(p => p.x <= 2025)) }
+  ], { yFmt: v => v.toFixed(1).replace(".", ","), ymin: 0, xStep: 4 });
+
+  /* ---------- 9. tech: estilos + mapa semántico ---------- */
+  builders["ch-tech-estilos"] = () => {
+    const t = D.taxonomia_anio.tech;
+    const series = [["fantasia_pura", C.s1], ["descriptivo", C.s2], ["ingles", C.s3]]
+      .map(([k, col]) => ({ name: CAT_LBL[k], color: col, points: movil3(pts(t[k])) }));
+    Charts.lineChart("ch-tech-estilos", series, { yFmt: v => v.toFixed(0) + "%", ymin: 10, ymax: 45, xStep: 4 });
+  };
+
+  const CLUSTER_COLORS = [C.s1, C.s2, C.s3, C.s4, C.s5, "#008300", "#9085e9", "#e66767"];
+  window.CLUSTER_NOMBRES = {
+    0: "Luz, visión y óptica", 1: "Marca corta abstracta",
+    2: "Tech explícito (app, digital)", 3: "Fantasía pura",
+    4: "Juego, música y emoción", 5: "Chile explícito",
+    6: "Negocios y consultoría", 7: "Frases en español",
+    8: "Fantasía evocadora", 9: "Bio, salud y laboratorio",
+    10: "Energía y potencia", 11: "Data y siglas técnicas"
+  };
+  /* evolución indexada: los territorios con movimiento real */
+  window.CLUSTER_EVO = [["5", C.s2], ["7", C.s4], ["8", C.s1], ["10", C.s3]];
+  builders["ch-scatter"] = () => {
+    if (!D.tech_scatter) return;
+    const info = D.tech_cluster_info;
+    /* los 8 clusters más grandes llevan color; el resto gris */
+    const top = Object.entries(info).sort((a, b) => b[1].n - a[1].n).slice(0, 8).map(([k]) => +k);
+    const colorMap = {}, lblMap = {};
+    top.forEach((c, i) => colorMap[c] = CLUSTER_COLORS[i]);
+    Object.entries(info).forEach(([k, v]) => {
+      lblMap[k] = (window.CLUSTER_NOMBRES || {})[k] || v.terminos.slice(0, 3).join(" · ");
+    });
+    const chart = Charts.scatterChart("ch-scatter", D.tech_scatter, {
+      colorOf: p => colorMap[p.c] || "#4a4a47",
+      labelOf: p => lblMap[p.c] || "",
+      yearInit: 2026
+    });
+    document.getElementById("lg-scatter").innerHTML = top.map(c =>
+      `<span><span class="sw" style="background:${colorMap[c]}"></span>${lblMap[c]}</span>`).join("") +
+      `<span><span class="sw" style="background:#4a4a47"></span>otros territorios</span>`;
+    const sl = document.getElementById("sl-scatter");
+    sl.addEventListener("input", () => {
+      document.getElementById("lbl-scatter").textContent = "hasta " + sl.value;
+      chart.setYear(+sl.value);
+    });
+  };
+
+  builders["ch-clusters-evo"] = () => {
+    if (!D.tech_cluster_year) return;
+    /* participaciones indexadas a 100 = promedio 2009-2011, para comparar
+       territorios de tamaños muy distintos en un solo eje */
+    const series = window.CLUSTER_EVO.map(([c, col]) => {
+      const raw = movil3(pts(D.tech_cluster_year[c]).filter(p => p.x <= 2025));
+      const base = (raw[0].y + raw[1].y + raw[2].y) / 3;
+      return {
+        name: window.CLUSTER_NOMBRES[c], color: col,
+        points: raw.map(p => ({ x: p.x, y: +(100 * p.y / base).toFixed(1) }))
+      };
+    });
+    Charts.lineChart("ch-clusters-evo", series, { yFmt: v => v.toFixed(0), xStep: 4, height: 340 });
+  };
+
   /* ---------- explorador ---------- */
   const selInd = document.getElementById("sel-ind");
   const selAnio = document.getElementById("sel-anio");

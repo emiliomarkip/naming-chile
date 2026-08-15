@@ -199,6 +199,60 @@ footer a{color:var(--accent)}
   </div>
 </section>
 
+<!-- ============ 8. TAXONOMÍA ============ -->
+<section class="section reveal">
+  <p class="kicker">Hallazgo 8</p>
+  <h2>¿De dónde salen los nombres? La radiografía completa</h2>
+  <p class="lede">Clasificamos las 783 mil marcas en nueve familias: descriptivas, en inglés,
+    fantasía pura, fantasía compuesta (eco-, -tec, agro-…), topónimos, raíces mapuche, apellidos,
+    mezclas y siglas. Dos sorpresas: <strong>los topónimos son la familia que más fracasa (37,2%)</strong>
+    — todos pelean por Atacama, Patagonia y Los Andes — y <strong>las marcas con raíz mapuche se
+    duplicaron</strong> desde 2009: newen, ruka, rayen y küme ya son parte del naming chileno.</p>
+  <div class="card">
+    <p class="chart-title">Tasa de fracaso según el origen del nombre</p>
+    <p class="chart-sub">% de solicitudes resueltas que no llegaron a registro · 2009–2023</p>
+    <div id="ch-tax-fracaso"></div>
+  </div>
+  <div class="card">
+    <p class="chart-title">Marcas con raíz mapuche</p>
+    <p class="chart-sub">Por cada 1.000 solicitudes del año</p>
+    <div id="ch-mapuche"></div>
+  </div>
+  <p class="lede mt-6" style="font-size:.95rem">Raíz mapuche, registradas: <span id="chips-mapuche"></span></p>
+  <p class="lede mt-3" style="font-size:.95rem">Topónimos, registradas: <span id="chips-toponimo"></span></p>
+</section>
+
+<!-- ============ 9. MAPA SEMÁNTICO TECH ============ -->
+<section class="section reveal">
+  <p class="kicker">Hallazgo 9 · Foco: tecnología (clases 9 y 42)</p>
+  <h2>El mapa semántico del software chileno</h2>
+  <p class="lede">Convertimos los ~90 mil nombres de marcas tecnológicas en vectores semánticos
+    — los mismos embeddings que usa el buscador de Markip — y los agrupamos en 12 territorios de
+    significado. El movimiento de fondo: <strong>el software abandonó los nombres descriptivos
+    (25% → 20%) y se volcó a la fantasía pura (30% → 38%)</strong>. El nombre tech chileno de 2025
+    no significa nada — y por eso registra.</p>
+  <div class="card">
+    <p class="chart-title">Cómo nombra la tecnología: tres estilos en disputa</p>
+    <p class="chart-sub">% de las solicitudes tech del año · clases 9 y 42</p>
+    <div id="ch-tech-estilos"></div>
+  </div>
+  <div class="card">
+    <p class="chart-title">El mapa: 4.000 marcas tech ubicadas por significado</p>
+    <p class="chart-sub">Proyección 2D de los embeddings · cada punto es una marca; los cercanos se parecen semánticamente. Mueve el año para ver el mapa poblarse.</p>
+    <div class="flex gap-3 items-center mb-3">
+      <input id="sl-scatter" type="range" min="2009" max="2026" value="2026" class="w-48 accent-blue-500">
+      <span id="lbl-scatter" class="font-semibold" style="font-variant-numeric:tabular-nums">hasta 2026</span>
+    </div>
+    <div id="ch-scatter"></div>
+    <div class="legend" id="lg-scatter"></div>
+  </div>
+  <div class="card">
+    <p class="chart-title">Territorios que suben y bajan</p>
+    <p class="chart-sub">Participación indexada (100 = promedio 2009–2011) · promedio móvil 3 años. "Chile explícito" —marcas que llevan Chile o Santiago en el nombre— perdió el 42% de su peso: el software chileno dejó de decir de dónde viene.</p>
+    <div id="ch-clusters-evo"></div>
+  </div>
+</section>
+
 <!-- ============ EXPLORADOR ============ -->
 <section class="section reveal">
   <p class="kicker">Explora tú mismo</p>
@@ -249,7 +303,11 @@ footer a{color:var(--accent)}
     (wordfreq) sobre los tokens del nombre; "inventado" = tokens ausentes de los léxicos español e inglés.
     Nacionalidad según país declarado del titular. Tasa de fracaso calculada solo sobre solicitudes resueltas
     (registrada, denegada, abandonada, desistida o vencida); "Caducado" cuenta como registro (100% tiene
-    número de registro). Industrias mapeadas por clases de Niza. Análisis: agosto 2026.
+    número de registro). Industrias mapeadas por clases de Niza. Taxonomía de orígenes con gazetteer de
+    topónimos chilenos, lexicón de raíces mapudungun y apellidos frecuentes, con filtro de frecuencia léxica
+    para descartar coincidencias casuales. Mapa semántico: embeddings multilingües
+    (paraphrase-multilingual-MiniLM-L12-v2), clustering k-means (k=12) y proyección t-SNE de una muestra
+    de 4.000 nombres. Análisis: agosto 2026.
   </p>
   <p class="text-sm mt-4" style="color:var(--muted)">© 2026 <a href="https://markip.cl">Markip</a> — hecho en Chile 🇨🇱</p>
 </footer>
