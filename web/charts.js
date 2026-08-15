@@ -195,7 +195,7 @@
     const peak = points.reduce((a, b) => b.y > a.y ? b : a);
     svg.appendChild(el("path", { d: points.map((p, i) => (i ? "L" : "M") + X(p.x) + " " + Y(p.y)).join(" "), fill: "none", stroke: color, "stroke-width": 2, "stroke-linecap": "round" }));
     svg.appendChild(el("circle", { cx: X(peak.x), cy: Y(peak.y), r: 3.5, fill: color, stroke: "var(--surface)", "stroke-width": 2 }));
-    svg.appendChild(txt("text", { x: Math.min(X(peak.x) + 5, W - 34), y: Math.max(Y(peak.y) - 5, 10), class: "hito", style: "fill:var(--ink-2);font-weight:600" }, peak.x));
+    svg.appendChild(txt("text", { x: Math.min(X(peak.x) + 5, W - 42), y: Math.max(Y(peak.y) - 5, 10), class: "hito", style: "fill:var(--ink-2);font-weight:600" }, peak.x));
     const hover = el("rect", { x: 0, y: 0, width: W, height: H, fill: "transparent" });
     hover.addEventListener("mousemove", e => {
       const r = svg.getBoundingClientRect(), mx = (e.clientX - r.left) * (W / r.width);
