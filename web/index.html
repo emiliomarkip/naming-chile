@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Cómo nombra Chile? — 800 mil marcas, 17 años de naming</title>
+<meta name="description" content="Analizamos 804.725 marcas presentadas en INAPI entre 2009 y 2026: cómo se alargan los nombres, por qué un tercio fracasa y qué estilos ganan. Un estudio de Markip.">
+<meta property="og:title" content="¿Cómo nombra Chile?">
+<meta property="og:description" content="804.725 marcas INAPI analizadas: los nombres se alargan, 1 de cada 3 marcas chilenas fracasa y los nombres inventados ganan. Un estudio de Markip.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://naming-chile.vercel.app/og.jpg">
+<meta property="og:locale" content="es_CL">
+<meta name="twitter:card" content="summary_large_image">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="data.js"></script>
+<script src="nombres_hero.js"></script>
+<style>
+:root{
+  --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181;
+  --accent:#3987e5;
+}
+html{scroll-behavior:smooth}
+body{background:var(--page);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;margin:0}
+.serif{font-family:Georgia,"Times New Roman",serif}
+.section{max-width:880px;margin:0 auto;padding:7rem 1.5rem}
+.kicker{color:var(--accent);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600}
+h2{font-size:clamp(1.8rem,4.5vw,2.8rem);line-height:1.12;margin:.6rem 0 1rem;font-weight:700}
+.lede{color:var(--ink-2);font-size:1.08rem;line-height:1.65;max-width:640px}
+.lede strong{color:var(--ink)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-top:2rem}
+.chart-title{font-size:.95rem;font-weight:600;margin-bottom:.15rem}
+.chart-sub{font-size:.8rem;color:var(--muted);margin-bottom:1rem}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+svg text{font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.tick{fill:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
+.gridline{stroke:var(--grid);stroke-width:1}
+.axisline{stroke:var(--axis);stroke-width:1}
+.dlabel{fill:var(--ink-2);font-size:12px;font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:1rem;font-size:.8rem;color:var(--ink-2);margin-top:.75rem}
+.legend .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:.4rem;vertical-align:-1px}
+.tooltip{position:fixed;pointer-events:none;background:#262624;border:1px solid var(--border);border-radius:10px;
+  padding:.5rem .7rem;font-size:.78rem;color:var(--ink);opacity:0;transition:opacity .12s;z-index:50;max-width:240px;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.tooltip b{font-variant-numeric:tabular-nums}
+details.tabla{margin-top:1rem;font-size:.8rem;color:var(--ink-2)}
+details.tabla summary{cursor:pointer;color:var(--muted)}
+details.tabla table{margin-top:.6rem;border-collapse:collapse;width:100%}
+details.tabla th,details.tabla td{border-bottom:1px solid var(--grid);padding:.3rem .5rem;text-align:right;font-variant-numeric:tabular-nums}
+details.tabla th:first-child,details.tabla td:first-child{text-align:left}
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+@media(max-width:640px){.statgrid{grid-template-columns:1fr}}
+.stat .label{font-size:.8rem;color:var(--muted)}
+.stat .value{font-size:3.2rem;font-weight:650;line-height:1.1}
+.meter{height:10px;background:#232322;border-radius:5px;overflow:hidden;margin-top:.8rem}
+.meter>div{height:100%;border-radius:5px;width:0;transition:width 1.2s cubic-bezier(.2,.7,.3,1)}
+.chip{display:inline-block;background:#232322;border:1px solid var(--border);border-radius:999px;
+  padding:.28rem .8rem;font-size:.8rem;color:var(--ink-2);margin:.22rem .18rem}
+select{background:var(--surface);color:var(--ink);border:1px solid var(--axis);border-radius:10px;padding:.55rem .9rem;font-size:.9rem}
+.hito{fill:var(--muted);font-size:10.5px}
+.hero-canvas{position:absolute;inset:0;z-index:0}
+.sparkgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+@media(max-width:640px){.sparkgrid{grid-template-columns:repeat(2,1fr)}}
+footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="relative min-h-screen flex items-center overflow-hidden">
+  <div id="hero3d" class="hero-canvas"></div>
+  <div class="relative z-10 section" style="padding-top:5rem;padding-bottom:5rem">
+    <p class="kicker">Un estudio de Markip · Datos INAPI 2009–2026</p>
+    <h1 class="serif" style="font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.05;margin:.9rem 0 1.2rem;font-weight:700">
+      ¿Cómo nombra<br>Chile?</h1>
+    <p class="lede">Analizamos <strong>804.725 solicitudes de marca</strong> presentadas ante INAPI
+      en los últimos 17 años para responder una pregunta simple: ¿cómo bautizamos lo que creamos —
+      y por qué tantos nombres fracasan?</p>
+    <p class="mt-10 text-sm" style="color:var(--muted)">Desliza para leer ↓</p>
+  </div>
+</header>
+
+<!-- ============ 1. LARGO ============ -->
+<section class="section reveal">
+  <p class="kicker">Hallazgo 1</p>
+  <h2>Los nombres se están alargando</h2>
+  <p class="lede">La intuición dice que las marcas buscan nombres cada vez más cortos y pegajosos.
+    Los datos dicen lo contrario: el nombre promedio pasó de <strong>12,3 a 13,9 caracteres</strong>
+    desde 2009 — y de 1,9 a 2,15 palabras. La explicación es incómoda:
+    <strong>los nombres cortos ya están tomados</strong>. Con más de 800 mil solicitudes acumuladas,
+    encontrar un nombre breve y libre es cada vez más difícil.</p>
+  <div class="card">
+    <p class="chart-title">Largo promedio del nombre de marca</p>
+    <p class="chart-sub">Caracteres, promedio anual · solicitudes con elemento verbal</p>
+    <div id="ch-largo"></div>
+  </div>
+</section>
+
+<!-- ============ 2. IDIOMA / INDUSTRIA ============ -->
+<section class="section reveal">
+  <p class="kicker">Hallazgo 2</p>
+  <h2>El español resiste — pero la tecnología habla inglés</h2>
+  <p class="lede">A nivel país, la mezcla de idiomas es sorprendentemente estable: un tercio en español,
+    un quinto en inglés y casi 40% de nombres inventados. Pero por industria hay mundos distintos:
+    en <strong>software el 72% de los nombres ya es inglés o inventado</strong> (era 64% en 2009),
+    mientras la gastronomía y los vinos siguen fieles al español. La farmacéutica es el extremo:
+    86% de sus nombres no existen en ningún diccionario.</p>
+  <div class="card">
+    <p class="chart-title">Nombres en inglés o inventados, por industria</p>
+    <p class="chart-sub">% de las solicitudes del año · promedio móvil 3 años</p>
+    <div id="ch-idioma-ind"></div>
+  </div>
+</section>
+
+<!-- ============ 3. DOS CHILES ============ -->
+<section class="section reveal">
+  <p class="kicker">Hallazgo 3</p>
+  <h2>Dos Chiles: el que nombra y el que llega</h2>
+  <p class="lede">Los solicitantes chilenos y los extranjeros nombran en idiomas casi opuestos.
+    El chileno bautiza en español (38%) y lo mezcla con inglés; la marca que llega de afuera viene
+    con <strong>nombre inventado (50%) o en inglés (31%)</strong> — ya pasó por un proceso profesional
+    de naming antes de cruzar la frontera.</p>
+  <div class="card">
+    <p class="chart-title">En qué idioma se nombra, según origen del titular</p>
+    <p class="chart-sub">Solicitudes 2025 · % del total de cada grupo</p>
+    <div id="ch-nacionalidad"></div>
+  </div>
+</section>
+
+<!-- ============ 4. FRACASO ============ -->
+<section class="section reveal">
+  <p class="kicker">Hallazgo 4</p>
+  <h2>1 de cada 3 marcas chilenas fracasa</h2>
+  <p class="lede">De las solicitudes chilenas ya resueltas, el <strong>35% nunca llegó a registro</strong>:
+    fue denegada, abandonada o expiró en el camino. Entre los titulares extranjeros el fracaso es solo
+    del 11%. La diferencia no es suerte: es preparación. Las marcas extranjeras llegan con estudios de
+    anterioridad hechos; la mayoría de las chilenas se presenta sin verificar si el nombre ya existe.</p>
+  <div class="statgrid">
+    <div class="card stat" style="margin-top:0">
+      <p class="label">Solicitudes chilenas que fracasan</p>
+      <p class="value" id="stat-cl">—</p>
+      <div class="meter"><div id="meter-cl" style="background:var(--s2)"></div></div>
+    </div>
+    <div class="card stat" style="margin-top:0">
+      <p class="label">Solicitudes extranjeras que fracasan</p>
+      <p class="value" id="stat-ext">—</p>
+      <div class="meter"><div id="meter-ext" style="background:var(--s1)"></div></div>
+    </div>
+  </div>
+  <p class="text-sm mt-4" style="color:var(--muted)">Casos resueltos 2009–2023 (excluye solicitudes aún en trámite). Fracaso = denegada, abandonada, desistida o vencida.</p>
+</section>
+
+<!-- ============ 5. INVENTADOS ============ -->
+<section class="section reveal">
+  <p class="kicker">Hallazgo 5</p>
+  <h2>Los nombres inventados ganan</h2>
+  <p class="lede">Ponerle a tu marca una palabra común en español es la receta del conflicto:
+    esos nombres fracasan el <strong>32,5%</strong> de las veces. Los nombres inventados —
+    sin significado previo, sin dueño previo — fracasan menos: <strong>25,7%</strong>.
+    En el registro de marcas, la distintividad paga.</p>
+  <div class="card">
+    <p class="chart-title">Tasa de fracaso según estilo del nombre</p>
+    <p class="chart-sub">% de solicitudes resueltas que no llegaron a registro · 2009–2023</p>
+    <div id="ch-idioma-fracaso"></div>
+  </div>
+  <p class="lede mt-6" style="font-size:.95rem">Registradas recientemente por chilenos:
+    <span id="chips-inventados"></span></p>
+</section>
+
+<!-- ============ 6. MODAS ============ -->
+<section class="section reveal">
+  <p class="kicker">Hallazgo 6</p>
+  <h2>Las modas del naming, año a año</h2>
+  <p class="lede">Los sufijos y prefijos de moda dejan huella fósil en el registro.
+    <strong>"App" se disparó con la pandemia</strong> (2020 marcó su récord histórico),
+    "eco" hizo su peak en 2019, "smart" vivió su momento en 2017–2019 y
+    <strong>"-tech" está hoy en máximos históricos</strong>.</p>
+  <div class="sparkgrid" id="sparks"></div>
+</section>
+
+<!-- ============ 7. HISTORIA PAÍS ============ -->
+<section class="section reveal">
+  <p class="kicker">Hallazgo 7</p>
+  <h2>La historia de Chile, escrita en marcas</h2>
+  <p class="lede">El registro de marcas es un sismógrafo de la economía. La incertidumbre de
+    2017–2019 hundió las solicitudes a su mínimo histórico. Y entonces llegó la pandemia — y con ella
+    el <strong>mayor boom emprendedor del registro</strong>: 2021 marcó récord de solicitudes, y la
+    participación chilena saltó del 69% histórico al <strong>83%</strong>. Chile entero se puso a crear marcas.</p>
+  <div class="card">
+    <p class="chart-title">Solicitudes de marca por año</p>
+    <p class="chart-sub">Total de solicitudes con elemento verbal presentadas ante INAPI</p>
+    <div id="ch-volumen"></div>
+  </div>
+  <div class="card">
+    <p class="chart-title">Participación de titulares chilenos</p>
+    <p class="chart-sub">% de las solicitudes del año presentadas por residentes en Chile</p>
+    <div id="ch-chilenos"></div>
+  </div>
+</section>
+
+<!-- ============ EXPLORADOR ============ -->
+<section class="section reveal">
+  <p class="kicker">Explora tú mismo</p>
+  <h2>El naming de tu industria</h2>
+  <p class="lede">Elige una industria y un año para ver cómo se nombraba entonces.</p>
+  <div class="flex gap-3 mt-8 flex-wrap items-center">
+    <select id="sel-ind"></select>
+    <input id="sel-anio" type="range" min="2009" max="2026" value="2025" class="w-48 accent-blue-500">
+    <span id="lbl-anio" class="font-semibold text-lg" style="font-variant-numeric:tabular-nums">2025</span>
+  </div>
+  <div class="statgrid">
+    <div class="card stat" style="margin-top:0">
+      <p class="label">Solicitudes</p><p class="value" id="ex-vol" style="font-size:2.4rem">—</p>
+      <p class="label mt-1" id="ex-vol-note"></p>
+    </div>
+    <div class="card stat" style="margin-top:0">
+      <p class="label">Tasa de fracaso</p><p class="value" id="ex-fracaso" style="font-size:2.4rem">—</p>
+      <p class="label mt-1" id="ex-fracaso-note"></p>
+    </div>
+  </div>
+  <div class="card">
+    <p class="chart-title">Mezcla de idiomas del año</p>
+    <div id="ex-idioma"></div>
+  </div>
+  <div class="card">
+    <p class="chart-title">Marcas registradas ese año</p>
+    <p id="ex-ejemplos" class="mt-2"></p>
+  </div>
+</section>
+
+<!-- ============ CIERRE ============ -->
+<section class="section reveal">
+  <p class="kicker">La conclusión</p>
+  <h2 class="serif">Un buen nombre ya no es una ocurrencia.<br>Es una decisión con datos.</h2>
+  <p class="lede">Cada año se presentan ~45.000 marcas en Chile y un tercio de las chilenas muere en el
+    intento — casi siempre porque el nombre chocó con uno anterior. Antes de enamorarte de un nombre,
+    revisa si está libre. <strong><a href="https://markip.cl" style="color:var(--accent)">Markip</a></strong>
+    busca tu nombre contra las 800 mil marcas de INAPI en segundos: por escritura, por sonido y por significado.</p>
+  <a href="https://markip.cl" class="inline-block mt-8 px-7 py-3.5 rounded-xl font-semibold"
+     style="background:var(--accent);color:#fff">Verifica tu marca gratis →</a>
+</section>
+
+<footer class="section" style="padding-top:2rem;border-top:1px solid var(--border)">
+  <p class="text-sm" style="color:var(--muted)">
+    <strong style="color:var(--ink-2)">Metodología.</strong>
+    Fuente: dataset público "Solicitudes de Marcas" de INAPI en datos.gob.cl (2009–2026, 804.725 solicitudes;
+    783.008 con elemento verbal: marcas denominativas y mixtas). Idioma clasificado por frecuencia léxica
+    (wordfreq) sobre los tokens del nombre; "inventado" = tokens ausentes de los léxicos español e inglés.
+    Nacionalidad según país declarado del titular. Tasa de fracaso calculada solo sobre solicitudes resueltas
+    (registrada, denegada, abandonada, desistida o vencida); "Caducado" cuenta como registro (100% tiene
+    número de registro). Industrias mapeadas por clases de Niza. Análisis: agosto 2026.
+  </p>
+  <p class="text-sm mt-4" style="color:var(--muted)">© 2026 <a href="https://markip.cl">Markip</a> — hecho en Chile 🇨🇱</p>
+</footer>
+
+<div class="tooltip" id="tooltip"></div>
+<script src="charts.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
