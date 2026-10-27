@@ -3,185 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Del mall al prompt — deep-dive del naming tech chileno</title>
-<meta name="description" content="Análisis lingüístico de las marcas tecnológicas chilenas (clases 9 y 42): las palabras más usadas en 2009, 2019 y 2025, la ola de la IA y cómo cambió el significado de los nombres.">
+<title>Del mall al prompt — el naming tech chileno</title>
+<meta name="description" content="Análisis lingüístico de las marcas tecnológicas chilenas (clases 9 y 42): las palabras más usadas en 2009, 2019 y 2025, la ola de la IA, el mapa semántico y cómo cambió el significado de los nombres.">
 <meta property="og:title" content="Del mall al prompt: cómo cambió el naming tech chileno">
 <meta property="og:description" content="En 2025 hay más marcas tech con 'AI' en el nombre que con 'Chile'. El deep-dive lingüístico de 102 mil marcas tecnológicas, por Markip.">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://naming-chile.vercel.app/og.jpg">
 <meta property="og:locale" content="es_CL">
 <meta name="twitter:card" content="summary_large_image">
-<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:ital,wght@0,400;0,600;1,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="story.css">
+<script src="data.js"></script>
 <script src="data_tech.js"></script>
 <style>
-:root{
-  --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
-  --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
-  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181;
-  --accent:#3987e5;
-}
-html{scroll-behavior:smooth}
-body{background:var(--page);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;margin:0}
-.serif{font-family:Georgia,"Times New Roman",serif}
-.section{max-width:880px;margin:0 auto;padding:6rem 1.5rem}
-.kicker{color:var(--accent);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600}
-h2{font-size:clamp(1.8rem,4.5vw,2.8rem);line-height:1.12;margin:.6rem 0 1rem;font-weight:700}
-.lede{color:var(--ink-2);font-size:1.08rem;line-height:1.65;max-width:640px}
-.lede strong{color:var(--ink)}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-top:2rem}
-.chart-title{font-size:.95rem;font-weight:600;margin-bottom:.15rem}
-.chart-sub{font-size:.8rem;color:var(--muted);margin-bottom:1rem}
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
-.reveal.visible{opacity:1;transform:none}
-svg text{font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
-.tick{fill:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
-.gridline{stroke:var(--grid);stroke-width:1}
-.axisline{stroke:var(--axis);stroke-width:1}
-.dlabel{fill:var(--ink-2);font-size:12px;font-weight:600}
-.legend{display:flex;flex-wrap:wrap;gap:1rem;font-size:.8rem;color:var(--ink-2);margin-top:.75rem}
-.legend .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:.4rem;vertical-align:-1px}
-.tooltip{position:fixed;pointer-events:none;background:#262624;border:1px solid var(--border);border-radius:10px;
-  padding:.5rem .7rem;font-size:.78rem;color:var(--ink);opacity:0;transition:opacity .12s;z-index:50;max-width:240px;box-shadow:0 8px 24px rgba(0,0,0,.5)}
-.tooltip b{font-variant-numeric:tabular-nums}
-details.tabla{margin-top:1rem;font-size:.8rem;color:var(--ink-2)}
-details.tabla summary{cursor:pointer;color:var(--muted)}
-details.tabla table{margin-top:.6rem;border-collapse:collapse;width:100%}
-details.tabla th,details.tabla td{border-bottom:1px solid var(--grid);padding:.3rem .5rem;text-align:right;font-variant-numeric:tabular-nums}
-details.tabla th:first-child,details.tabla td:first-child{text-align:left}
-.chip{display:inline-block;background:#232322;border:1px solid var(--border);border-radius:999px;
-  padding:.28rem .8rem;font-size:.8rem;color:var(--ink-2);margin:.22rem .18rem}
-.sparkgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
-@media(max-width:640px){.sparkgrid{grid-template-columns:repeat(2,1fr)}}
-.rankgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.rankgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.4rem 0}
 @media(max-width:760px){.rankgrid{grid-template-columns:1fr}}
-.rank{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem}
-.rank h3{font-size:1.6rem;font-weight:700;margin:0 0 .2rem}
-.rank p.sub{font-size:.75rem;color:var(--muted);margin:0 0 1rem}
+.rank{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.2rem}
+.rank h3{font-family:var(--font-serif);font-size:1.7rem;font-weight:400;margin:0 0 .1rem}
+.rank p.sub{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 .9rem}
 .rank ol{list-style:none;margin:0;padding:0}
-.rank li{display:flex;align-items:center;gap:.55rem;padding:.24rem 0;font-size:.86rem}
-.rank .pos{color:var(--muted);width:1.4rem;text-align:right;font-variant-numeric:tabular-nums;font-size:.75rem}
-.rank .w{color:var(--ink);font-weight:600;min-width:6.2rem}
-.rank .bar{height:7px;border-radius:4px;background:#2e2e2c;flex:1;overflow:hidden}
-.rank .bar>span{display:block;height:100%;border-radius:4px;background:var(--s1)}
-.rank .r{color:var(--muted);font-size:.72rem;font-variant-numeric:tabular-nums;width:2.4rem;text-align:right}
-.badge{background:rgba(57,135,229,.18);color:#7db2ef;border-radius:5px;font-size:.62rem;padding:.08rem .34rem;font-weight:700;letter-spacing:.04em}
-.stat .label{font-size:.8rem;color:var(--muted)}
-.stat .value{font-size:3.2rem;font-weight:650;line-height:1.1}
-footer a, a.nav{color:var(--accent)}
+.rank li{display:flex;align-items:center;gap:.55rem;padding:.22rem 0;font-family:var(--font-sans);font-size:.9rem}
+.rank .pos{color:var(--muted);width:1.4rem;text-align:right;font-family:var(--font-mono);font-size:.7rem}
+.rank .w{font-style:italic;font-weight:600;text-transform:uppercase;min-width:6.4rem;font-size:.85rem}
+.rank .bar{height:7px;border-radius:2px;background:var(--bg-2);flex:1;overflow:hidden}
+.rank .bar>span{display:block;height:100%;background:var(--both)}
+.rank .bar>span.hot{background:var(--new)}
+.rank .r{color:var(--muted);font-family:var(--font-mono);font-size:.68rem;width:2.4rem;text-align:right}
+.badge{background:var(--new-hl);color:var(--new-ink);border-radius:3px;font-family:var(--font-mono);font-size:.58rem;padding:.1rem .3rem;letter-spacing:.06em;margin-left:.3rem;font-style:normal}
 </style>
 </head>
 <body>
 
-<header class="section" style="padding-bottom:2rem">
-  <a class="nav text-sm" href="/">← ¿Cómo nombra Chile? (página 1)</a>
-  <p class="kicker mt-8">Un estudio de Markip · Página 2 · Clases de Niza 9 y 42</p>
-  <h1 class="serif" style="font-size:clamp(2.4rem,6vw,4rem);line-height:1.08;margin:.9rem 0 1.2rem;font-weight:700">
-    Del mall al prompt:<br>el naming tech chileno</h1>
-  <p class="lede">Un deep-dive lingüístico sobre las <strong>102 mil marcas tecnológicas</strong> presentadas
-    en Chile desde 2009: qué palabras usan, qué significan y cómo tres olas — el retail, los smartphones
-    y la inteligencia artificial — reescribieron la forma de bautizar la tecnología.</p>
+<header class="title-block" style="padding-top:4rem">
+  <p class="kicker"><a href="/">← Página 1: Del banco a la panadería</a></p>
+  <p class="kicker" style="margin-top:2.5rem">Un estudio de Markip · Página 2 · Clases de Niza 9 y 42</p>
+  <h1 class="title">Del mall al prompt:<br>el naming tech chileno</h1>
+  <p class="dek">Un deep-dive sobre las 102 mil marcas tecnológicas presentadas en Chile desde 2009: qué palabras usan, qué significan y cómo tres olas, el retail, los smartphones y la inteligencia artificial, reescribieron la forma de bautizar la tecnología.</p>
 </header>
 
-<!-- ===== 1. RANKINGS ===== -->
-<section class="section reveal" style="padding-top:3rem">
-  <p class="kicker">Las palabras de cada época</p>
-  <h2>2009 · 2019 · 2025: tres vocabularios distintos</h2>
-  <p class="lede">El top de palabras de cada año es una radiografía de su economía. En <strong>2009</strong>
-    la marca tech chilena hablaba de retail y corporaciones: plaza, centro, mall, Falabella, Entel.
-    En <strong>2019</strong> el ranking lo invadieron los gigantes chinos — Huawei, ZTE — y el vocabulario
-    smartphone: smart, digital, go. En <strong>2025</strong> mandan la ingeniería, los studios…
-    y una sigla que en 2009 no existía: <strong>AI</strong>.</p>
-  <div class="rankgrid" id="rankings"></div>
-  <p class="text-sm mt-4" style="color:var(--muted)">Menciones por cada 1.000 marcas tech del año. <span class="badge">NUEVA</span> = no estaba en el top-60 de 2009.</p>
-</section>
+<article>
+<div class="prose">
+  <h2 class="section-head">Las palabras de cada época</h2>
+  <p>El top de palabras de cada año es una radiografía de su economía. En <strong>2009</strong> la marca tech chilena hablaba de retail y corporaciones: plaza, centro, mall, Falabella, Entel. En <strong>2019</strong> el ranking lo invadieron los gigantes chinos, Huawei y ZTE, y el vocabulario smartphone: smart, digital, go. En <strong>2025</strong> mandan la ingeniería, los studios y una sigla que en 2009 no existía: <strong>AI</strong>.</p>
+  <h3 class="chart-head">2009 · 2019 · 2025: tres vocabularios distintos</h3>
+  <p class="chart-sub">Menciones por cada 1.000 marcas tech del año. <span class="badge">NUEVA</span> = no estaba en el top-60 de 2009.</p>
+</div>
+<div class="wrap-med"><div class="rankgrid" id="rankings"></div></div>
 
-<!-- ===== 2. LA OLA IA ===== -->
-<section class="section reveal">
-  <p class="kicker">El hallazgo</p>
-  <h2>En 2025 hay más marcas con "AI" que con "Chile"</h2>
-  <p class="lede">"AI" o "IA" en el nombre pasó de <strong>cero en 2009 a 12,6 por mil en 2025</strong> —
-    de no existir a ser la palabra más usada del naming tech después de "ingeniería". El cruce simbólico
-    ya ocurrió: la marca tecnológica chilena hoy dice antes qué tecnología usa que de qué país viene.</p>
-  <div class="card">
-    <p class="chart-title">"AI/IA" vs "Chile" en el nombre</p>
-    <p class="chart-sub">Marcas por cada 1.000 solicitudes tech del año</p>
-    <div id="ch-ia"></div>
-  </div>
-  <p class="lede mt-6" style="font-size:.95rem">Solicitadas desde 2023: <span id="chips-ia"></span></p>
-</section>
+<div class="prose">
+  <h2 class="section-head">El hallazgo</h2>
+  <h3 class="chart-head">En 2025 hay más marcas con "AI" que con "Chile"</h3>
+  <p class="chart-sub">Marcas por cada 1.000 solicitudes tech del año.</p>
+</div>
+<div class="wrap-med"><div class="card"><div id="ch-ia"></div></div>
+<div class="prose"><p>"AI" o "IA" en el nombre pasó de <strong>cero en 2009 a 12,6 por mil en 2025</strong>: de no existir a ser la palabra más usada del naming tech después de "ingeniería". El cruce simbólico ya ocurrió: la marca tecnológica chilena hoy dice antes qué tecnología usa que de qué país viene. Solicitadas desde 2023: <span id="chips-ia"></span></p></div></div>
 
-<!-- ===== 3. OLAS ===== -->
-<section class="section reveal">
-  <p class="kicker">Arqueología léxica</p>
-  <h2>Cada tecnología deja su capa de sedimento</h2>
-  <p class="lede">Las palabras tecnológicas tienen ciclo de vida: nacen con la tecnología, hacen peak
-    cuando se masifica y se hunden cuando se vuelve obvia. Nadie le pone "web" a su marca en 2025
-    por la misma razón que nadie le puso "electricidad" en 1990: dejó de ser diferenciador.</p>
-  <div class="sparkgrid" id="olas"></div>
-</section>
+<div class="prose">
+  <h2 class="section-head">Arqueología léxica</h2>
+  <p>Las palabras tecnológicas tienen ciclo de vida: nacen con la tecnología, hacen peak cuando se masifica y se hunden cuando se vuelve obvia. Nadie le pone "web" a su marca en 2025 por la misma razón que nadie le puso "electricidad" en 1990: dejó de ser diferenciador.</p>
+  <h3 class="chart-head">Cada tecnología deja su capa de sedimento</h3>
+  <p class="chart-sub">Marcas que llevan la palabra, por cada 1.000 solicitudes tech del año.</p>
+</div>
+<div class="wrap-med"><div class="sparkgrid" id="olas"></div></div>
 
-<!-- ===== 4. SUBEN / BAJAN ===== -->
-<section class="section reveal">
-  <p class="kicker">El cambio de vocabulario</p>
-  <h2>Lo que el naming tech ganó y perdió</h2>
-  <p class="lede">Comparando 2009–2011 contra 2023–2025: se van las palabras de lugar y de institución
-    — plaza, centro, universidad, red, Entel — y llegan las de capacidad y oficio:
-    <strong>ingeniería (se duplica)</strong>, smart, solutions, studio, link. El nombre tech dejó de decir
-    <em>dónde está</em> la empresa y empezó a decir <em>qué sabe hacer</em>.</p>
-  <div class="grid gap-4 md:grid-cols-2 mt-8">
-    <div class="card" style="margin-top:0">
-      <p class="chart-title">Suben ▲</p>
-      <p class="chart-sub">Cambio en menciones por 1.000 marcas</p>
-      <div id="ch-suben"></div>
-    </div>
-    <div class="card" style="margin-top:0">
-      <p class="chart-title">Bajan ▼</p>
-      <p class="chart-sub">Cambio en menciones por 1.000 marcas</p>
-      <div id="ch-bajan"></div>
-    </div>
-  </div>
-</section>
+<div class="prose">
+  <h2 class="section-head">El cambio de vocabulario</h2>
+  <p>Comparando 2009–2011 contra 2023–2025: se van las palabras de lugar y de institución (plaza, centro, universidad, red, Entel) y llegan las de capacidad y oficio: <strong>ingeniería (se duplica)</strong>, smart, solutions, studio, link. El nombre tech dejó de decir <em>dónde está</em> la empresa y empezó a decir <em>qué sabe hacer</em>.</p>
+  <h3 class="chart-head">Lo que el naming tech ganó y perdió</h3>
+  <p class="chart-sub">Cambio en menciones por 1.000 marcas, 2009–2011 vs 2023–2025.</p>
+</div>
+<div class="wrap-med"><div class="statgrid">
+  <div class="card"><p class="chart-title">Suben ▲</p><div id="ch-suben"></div></div>
+  <div class="card"><p class="chart-title">Bajan ▼</p><div id="ch-bajan"></div></div>
+</div></div>
 
-<!-- ===== 5. SIGNIFICADO ===== -->
-<section class="section reveal">
-  <p class="kicker">¿Qué significan?</p>
-  <h2>El significado también migró</h2>
-  <p class="lede">Agrupando el léxico en campos semánticos, el movimiento de fondo del período:
-    el campo <strong>lugar-Chile se contrae</strong> (2,4% → 1,5% de las marcas), la
-    <strong>IA nace y explota</strong> (0% → 1,5%), y lo aspiracional — power, pro, smart, magic —
-    crece sostenido. El naming tech chileno pasó de anclarse en el territorio a anclarse en la promesa.</p>
-  <div class="card">
-    <p class="chart-title">Campos semánticos en el nombre</p>
-    <p class="chart-sub">% de las marcas tech del año que tocan cada campo · promedio móvil 3 años</p>
-    <div id="ch-campos"></div>
-  </div>
-</section>
+<div class="prose">
+  <h2 class="section-head">¿Qué significan?</h2>
+  <p>Agrupando el léxico en campos semánticos, el movimiento de fondo del período: el campo <strong>lugar-Chile se contrae</strong> (2,4% → 1,5% de las marcas), la <strong>IA nace y explota</strong> (0% → 1,5%), y lo aspiracional, power, pro, smart, magic, crece sostenido. El naming tech chileno pasó de anclarse en el territorio a anclarse en la promesa.</p>
+  <h3 class="chart-head">El significado también migró</h3>
+  <p class="chart-sub">% de las marcas tech del año que tocan cada campo semántico. Promedio móvil de 3 años.</p>
+</div>
+<div class="wrap-med"><div class="card"><div id="ch-campos"></div></div></div>
 
-<!-- ===== CIERRE ===== -->
-<section class="section reveal">
-  <p class="kicker">La conclusión</p>
-  <h2 class="serif">El nombre tech chileno dejó de mirar el mapa<br>y empezó a mirar el futuro.</h2>
-  <p class="lede">De "Plaza", "Centro" y "Chile" a "AI", "Studio" y "Smart": en 17 años el naming
-    tecnológico cambió de sistema de coordenadas. Si estás por bautizar tu próximo producto,
-    recuerda la otra lección de este estudio: las palabras de moda envejecen rápido — y los nombres
-    distintivos registran más. <strong><a href="https://markip.cl" style="color:var(--accent)">Verifica
-    tu nombre en Markip</a></strong> antes de enamorarte de él.</p>
-  <div class="flex gap-4 mt-8 flex-wrap">
-    <a href="https://markip.cl" class="inline-block px-7 py-3.5 rounded-xl font-semibold" style="background:var(--accent);color:#fff">Verifica tu marca gratis →</a>
-    <a href="/" class="inline-block px-7 py-3.5 rounded-xl font-semibold" style="border:1px solid var(--axis);color:var(--ink-2)">← Volver al estudio</a>
+<div class="prose">
+  <h2 class="section-head">El mapa semántico</h2>
+  <p>Convertimos los ~90 mil nombres tech en vectores semánticos, los mismos embeddings que usa el buscador de Markip, y los agrupamos en 12 territorios de significado. El movimiento de fondo: <strong>el software abandonó los nombres descriptivos (25% → 20%) y se volcó a la fantasía pura (30% → 38%)</strong>. El nombre tech chileno de 2025 no significa nada, y por eso registra.</p>
+  <h3 class="chart-head">Tres estilos en disputa</h3>
+  <p class="chart-sub">% de las solicitudes tech del año, clases 9 y 42.</p>
+</div>
+<div class="wrap-med"><div class="card"><div id="ch-tech-estilos"></div></div></div>
+<div class="prose">
+  <h3 class="chart-head">4.000 marcas tech ubicadas por significado</h3>
+  <p class="chart-sub">Proyección 2D de los embeddings: cada punto es una marca y los cercanos se parecen semánticamente. Mueve el año para ver el mapa poblarse.</p>
+</div>
+<div class="wrap-med"><div class="card">
+  <div style="display:flex;gap:1rem;align-items:center;margin-bottom:.8rem"><input id="sl-scatter" type="range" min="2009" max="2026" value="2026" style="width:12rem" aria-label="Año"><span id="lbl-scatter" class="mono">hasta 2026</span></div>
+  <div id="ch-scatter"></div><div class="legend" id="lg-scatter" style="justify-content:flex-start"></div>
+</div></div>
+<div class="prose">
+  <h3 class="chart-head">Territorios que suben y bajan</h3>
+  <p class="chart-sub">Participación indexada (100 = promedio 2009–2011), promedio móvil 3 años. "Chile explícito", las marcas que llevan Chile o Santiago en el nombre, perdió el 42% de su peso: el software chileno dejó de decir de dónde viene.</p>
+</div>
+<div class="wrap-med"><div class="card"><div id="ch-clusters-evo"></div></div></div>
+
+<div class="prose">
+  <h2 class="section-head">La conclusión</h2>
+  <p>De "Plaza", "Centro" y "Chile" a "AI", "Studio" y "Smart": en 17 años el naming tecnológico cambió de sistema de coordenadas. Si estás por bautizar tu próximo producto, recuerda la otra lección de este estudio: las palabras de moda envejecen rápido, y los nombres distintivos registran más.</p>
+  <p><a href="https://markip.cl" class="btn primary">Verifica tu marca gratis →</a> <a href="/" class="btn" style="margin-left:.5rem">← Volver a la página 1</a></p>
+</div>
+</article>
+
+<section class="methods">
+  <div class="prose">
+    <h2 class="section-head" style="margin-top:0">Método y notas</h2>
+    <p>Universo: 102.156 solicitudes de marca con elemento verbal en clases de Niza 9 y/o 42 (INAPI vía datos.gob.cl, 2009–2026). Tokenización sin tildes, stopwords español/inglés y sufijos societarios excluidos; frecuencias medidas como presencia por marca, por 1.000 solicitudes del año. "AI/IA" cuenta ambos tokens exactos. Campos semánticos por lexicones temáticos. Comparación de épocas: promedios 2009–2011 vs 2023–2025, mínimo 60 menciones. Mapa semántico: embeddings multilingües (paraphrase-multilingual-MiniLM-L12-v2), clustering k-means (k=12) y proyección t-SNE de una muestra de 4.000 nombres.</p>
   </div>
 </section>
-
-<footer class="section" style="padding-top:2rem;border-top:1px solid var(--border)">
-  <p class="text-sm" style="color:var(--muted)">
-    <strong style="color:var(--ink-2)">Metodología.</strong> Universo: 102.156 solicitudes de marca con
-    elemento verbal en clases de Niza 9 y/o 42 (INAPI vía datos.gob.cl, 2009–2026). Tokenización sin
-    tildes, stopwords español/inglés y sufijos societarios excluidos; frecuencias medidas como presencia
-    por marca, por 1.000 solicitudes del año. "AI/IA" cuenta ambos tokens exactos. Campos semánticos por
-    lexicones temáticos. Comparación de épocas: promedios 2009–2011 vs 2023–2025, mínimo 60 menciones.
-  </p>
-  <p class="text-sm mt-4" style="color:var(--muted)">© 2026 <a href="https://markip.cl">Markip</a> — hecho en Chile 🇨🇱 · <a href="/">Página 1: ¿Cómo nombra Chile?</a></p>
-</footer>
+<footer class="site">© 2026 <a href="https://markip.cl">Markip</a> · hecho en Chile 🇨🇱 · <a href="/">Página 1: Del banco a la panadería</a></footer>
 
 <div class="tooltip" id="tooltip"></div>
 <script src="charts.js"></script>
