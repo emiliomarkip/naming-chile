@@ -184,8 +184,8 @@
   /* ---- sparkline card ---- */
   function sparkCard(container, name, sub, points, color) {
     const card = document.createElement("div");
-    card.className = "card"; card.style.marginTop = 0; card.style.padding = "1rem 1.2rem";
-    card.innerHTML = `<p class="chart-title" style="margin-bottom:0">${name}</p><p class="chart-sub" style="margin-bottom:.5rem">${sub}</p>`;
+    card.className = "card"; card.style.margin = 0; card.style.padding = "1rem 1.2rem";
+    card.innerHTML = `<p class="chart-title" style="margin-bottom:0">${name}</p><p class="chart-sub-sm" style="margin-bottom:.5rem">${sub}</p>`;
     const W = 200, H = 56;
     const xs = points.map(p => p.x), ys = points.map(p => p.y);
     const xmin = Math.min(...xs), xmax = Math.max(...xs), ymin = 0, ymax = Math.max(...ys) * 1.1;
@@ -239,7 +239,7 @@
       if (highlight) {
         const p = highlight;
         ctx.globalAlpha = 1;
-        ctx.lineWidth = 2; ctx.strokeStyle = "#fff";
+        ctx.lineWidth = 2; ctx.strokeStyle = "#2A2924";
         ctx.beginPath(); ctx.arc(px(p), py(p), 5, 0, 6.284); ctx.stroke();
       }
       ctx.globalAlpha = 1;
