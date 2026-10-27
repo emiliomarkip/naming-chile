@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!-- Plantilla de la imagen OG (1200×630). Render: Chrome headless --screenshot --window-size=1200,630 sobre este archivo; luego Pillow → web/og.png y web/og.jpg -->
+<html lang="es"><head><meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600&family=Source+Sans+3:ital,wght@1,600&family=IBM+Plex+Mono:wght@500&display=block" rel="stylesheet">
+<style>
+:root{--bg:#FBFAF0;--ink:#2A2924;--ink-2:#55544D;--muted:#8B887A;
+  --old:#E0862B;--old-hl:#F7C98E;--old-ink:#8A4A0C;--new:#2F6FE0;--new-hl:#BBD2F7;--new-ink:#173E8C;--both:#D6D0B6;--both-hl:#EAE6D2;--both-ink:#6B6650}
+html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:var(--bg);font-family:"Source Serif 4",Georgia,serif;color:var(--ink)}
+.field{position:absolute;inset:0}
+.field span{position:absolute;font-family:"Source Sans 3",system-ui,sans-serif;font-style:italic;font-weight:600;text-transform:uppercase;font-size:22px;letter-spacing:.02em;padding:2px 9px;border-radius:3px;white-space:nowrap}
+.old{background:var(--old-hl);color:var(--old-ink)} .new{background:var(--new-hl);color:var(--new-ink)} .both{background:var(--both-hl);color:var(--both-ink)}
+.dim{opacity:.55}
+.card{position:absolute;left:190px;top:140px;width:820px;background:var(--bg);box-shadow:0 0 0 14px var(--bg),0 0 60px 40px var(--bg);text-align:center}
+.kicker{font-family:"IBM Plex Mono",Menlo,monospace;font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 18px}
+h1{font-weight:400;font-size:92px;line-height:.98;letter-spacing:-.015em;margin:0 0 22px}
+.dek{font-size:27px;line-height:1.35;color:var(--ink-2);margin:0 auto;max-width:760px}
+.legend{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-family:"IBM Plex Mono",Menlo,monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin:0 8px 0 26px;vertical-align:-1px}
+.markip{position:absolute;right:40px;top:30px;font-family:"IBM Plex Mono",Menlo,monospace;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+</style></head><body>
+<div class="field">
+  <span class="old" style="left:48px;top:40px">Banco</span>
+  <span class="both dim" style="left:300px;top:36px">Chile</span>
+  <span class="new" style="left:560px;top:44px">Pastelería</span>
+  <span class="old dim" style="left:790px;top:12px">Mutual</span>
+  <span class="old dim" style="left:1010px;top:60px">Nextel</span>
+  <span class="old" style="left:120px;top:100px">Mall</span>
+  <span class="new dim" style="left:420px;top:96px">AI</span>
+  <span class="both" style="left:770px;top:92px">Casa</span>
+  <span class="new" style="left:1070px;top:130px">Pádel</span>
+  <span class="old" style="left:40px;top:180px">Universidad</span>
+  <span class="old dim" style="left:1050px;top:205px">Casino</span>
+  <span class="new" style="left:30px;top:270px">Joyas</span>
+  <span class="both dim" style="left:1090px;top:285px">Café</span>
+  <span class="old" style="left:60px;top:360px">Isapre</span>
+  <span class="new" style="left:1030px;top:370px">Mascotas</span>
+  <span class="old dim" style="left:40px;top:450px">Plaza</span>
+  <span class="new dim" style="left:1090px;top:450px">Gym</span>
+  <span class="new" style="left:140px;top:520px">Panadería</span>
+  <span class="old" style="left:420px;top:535px">BlackBerry</span>
+  <span class="both dim" style="left:660px;top:528px">Patagonia</span>
+  <span class="new" style="left:900px;top:536px">Pilates</span>
+  <span class="both" style="left:1050px;top:520px">Clínica</span>
+</div>
+<div class="card">
+  <p class="kicker">804.725 marcas INAPI · 2009–2025</p>
+  <h1>Del banco<br>a la panadería</h1>
+  <p class="dek">Cómo cambiaron las palabras con que Chile nombra sus marcas, y qué dicen de nosotros.</p>
+</div>
+<div class="markip">Un estudio de Markip</div>
+<div class="legend"><i style="background:#D6D0B6"></i>Permanecen <i style="background:#E0862B"></i>Salieron de la lista 2009 <i style="background:#2F6FE0"></i>Entraron a la lista 2025</div>
+</body></html>
